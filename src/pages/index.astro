@@ -3,28 +3,76 @@ import Layout from '../layouts/Layout.astro';
 import Terminal from '../components/Terminal.astro';
 ---
 
-<Layout>
-    <main>
-        <Terminal />
-        <footer>
-            <p>© 2023 Miguel's Portfolio. Todos los derechos reservados.</p>
-        </footer>
-    </main>
+<Layout title="Miguel's Terminal">
+  <Terminal fullscreen={true}>
+    <div class="boot-sequence">
+      <p>Connecting to miguel.dev via SSH...</p>
+      <div class="loading-dots"></div>
+      <p>Connection established.</p>
+      <p>Last login: {new Date().toUTCString()} from visitor.browser</p>
+    </div>
+    
+    <div class="command">cat welcome.txt</div>
+    <div class="output">
+      <h1>Welcome to Miguel's Terminal</h1>
+      <p>This is a simulated Debian terminal environment.</p>
+      <p>Feel free to explore using the commands below.</p>
+    </div>
+    
+    <div class="command">ls -l</div>
+    <div class="output">
+      <ul>
+        <li>drwxr-xr-x  2 miguel users  4096 Aug 10 09:30 <a href="/home">home/</a></li>
+        <li>drwxr-xr-x  2 miguel users  4096 Aug 10 09:30 <a href="/blog">blog/</a></li>
+        <li>drwxr-xr-x  2 miguel users  4096 Aug 10 09:30 <a href="/projects">projects/</a></li>
+        <li>-rw-r--r--  1 miguel users  2048 Aug 10 09:30 <a href="#resume">resume.pdf</a></li>
+        <li>-rw-r--r--  1 miguel users  1024 Aug 10 09:30 <a href="#contact">contact.md</a></li>
+      </ul>
+    </div>
+    
+    <div class="command">whoami</div>
+    <div class="output">visitor</div>
+    
+    <div class="command blinking-cursor"></div>
+  </Terminal>
 </Layout>
 
 <style>
-    main {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    footer {
-        text-align: center;
-        margin-top: 30px;
-        font-size: 12px;
-        color: #666;
-    }
+  .boot-sequence {
+    margin-bottom: 1.5rem;
+    color: #6272a4;
+  }
+  
+  .loading-dots {
+    height: 1rem;
+    margin: 0.5rem 0;
+    position: relative;
+  }
+  
+  .loading-dots::after {
+    content: ".";
+    animation: dots 1.5s steps(5, end) infinite;
+    position: absolute;
+  }
+  
+  @keyframes dots {
+    0%, 20% { content: "."; }
+    40% { content: ".."; }
+    60% { content: "..."; }
+    80%, 100% { content: ""; }
+  }
+  
+  .blinking-cursor::after {
+    content: "█";
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  .command, .output {
+    margin-bottom: 1rem;
+  }
 </style>

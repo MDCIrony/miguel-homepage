@@ -1,129 +1,127 @@
 ---
+interface Props {
+  content: string;
+  title?: string;
+  fullscreen?: boolean;
+}
+
+const { content, title = "miguel@debian: ~", fullscreen = false } = Astro.props;
 ---
-<div class="terminal">
-    <div class="terminal-header">
-        <div class="terminal-buttons">
-            <span class="close"></span>
-            <span class="minimize"></span>
-            <span class="maximize"></span>
-        </div>
-        <div class="terminal-title">terminal@miguel:~</div>
+
+<div class={`terminal-container ${fullscreen ? "fullscreen" : ""}`}>
+  <div class="terminal-header">
+    <div class="terminal-buttons">
+      <span class="terminal-button close"></span>
+      <span class="terminal-button minimize"></span>
+      <span class="terminal-button maximize"></span>
     </div>
+    <div class="terminal-title">{title}</div>
+  </div>
+  <div class="terminal-body">
     <div class="terminal-content">
-        <p class="welcome">Bienvenido al Portfolio de Miguel. Versión 1.0.0</p>
-        <p class="prompt">miguel@portfolio:~$ ls -l</p>
-        <div class="file-list">
-            <a href="/home" class="file">drwxr-xr-x 2 miguel users 4.0K Jul 15 2023 <span class="folder">home</span></a>
-            <a href="/projects" class="file">drwxr-xr-x 4 miguel users 4.0K Aug 23 2023 <span class="folder">projects</span></a>
-            <a href="/blog" class="file">drwxr-xr-x 5 miguel users 4.0K Sep 10 2023 <span class="folder">blog</span></a>
-            <div class="file">-rw-r--r-- 1 miguel users  256B Jun 30 2023 README.md</div>
-        </div>
-        <p class="prompt">miguel@portfolio:~$ <span class="cursor">_</span></p>
-        <p class="help-text">Haz clic en una carpeta para navegar a esa sección</p>
+      <slot />
+      {content && <div set:html={content} />}
     </div>
+  </div>
 </div>
 
 <style>
-    .terminal {
-        width: 800px;
-        max-width: 90%;
-        margin: 50px auto;
-        background-color: #111;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0, 255, 0, 0.2);
-        overflow: hidden;
-    }
-    
-    .terminal-header {
-        background-color: #333;
-        padding: 8px 15px;
-        display: flex;
-        align-items: center;
-    }
-    
-    .terminal-buttons {
-        display: flex;
-        gap: 6px;
-        margin-right: 15px;
-    }
-    
-    .terminal-buttons span {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        display: inline-block;
-    }
-    
-    .close {
-        background-color: #ff5f56;
-    }
-    
-    .minimize {
-        background-color: #ffbd2e;
-    }
-    
-    .maximize {
-        background-color: #27c93f;
-    }
-    
-    .terminal-title {
-        color: #ddd;
-        font-size: 14px;
-    }
-    
-    .terminal-content {
-        padding: 15px 20px;
-        height: 400px;
-        overflow-y: auto;
-    }
-    
-    .welcome {
-        color: #0f0;
-        margin-bottom: 15px;
-    }
-    
-    .prompt {
-        color: #0f0;
-        margin: 10px 0;
-    }
-    
-    .file-list {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        margin: 10px 0;
-    }
-    
-    .file {
-        color: #ddd;
-        padding: 3px 0;
-        font-family: monospace;
-        cursor: pointer;
-        display: block;
-    }
-    
-    .file:hover {
-        background-color: rgba(0, 255, 0, 0.1);
-    }
-    
-    .folder {
-        color: #40a0ff;
-        font-weight: bold;
-    }
-    
-    .cursor {
-        animation: blink 1s step-end infinite;
-    }
-    
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
-    }
-    
-    .help-text {
-        color: #888;
-        font-size: 14px;
-        margin-top: 20px;
-        font-style: italic;
-    }
+  .terminal-container {
+    background-color: #282a36;
+    border-radius: 6px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    margin: 2rem;
+    overflow: hidden;
+    width: calc(100% - 4rem);
+  }
+
+  .fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    z-index: 1000;
+  }
+
+  .terminal-header {
+    background-color: #1c1e26;
+    display: flex;
+    padding: 0.5rem;
+    align-items: center;
+  }
+
+  .terminal-buttons {
+    display: flex;
+    gap: 6px;
+    margin-right: 1rem;
+  }
+
+  .terminal-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .close {
+    background-color: #ff5f56;
+  }
+
+  .minimize {
+    background-color: #ffbd2e;
+  }
+
+  .maximize {
+    background-color: #27c93f;
+  }
+
+  .terminal-title {
+    color: #f8f8f2;
+    font-size: 0.9rem;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .terminal-body {
+    color: #f8f8f2;
+    padding: 1rem;
+    height: calc(100% - 2.5rem);
+    overflow-y: auto;
+    background-color: #282a36;
+  }
+
+  .terminal-content {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  /* Estilos para la simulación de terminal */
+  .terminal-content :global(.command) {
+    color: #8be9fd;
+    margin-bottom: 0.5rem;
+  }
+
+  .terminal-content :global(.command::before) {
+    content: "miguel@debian:~$ ";
+    color: #50fa7b;
+  }
+
+  .terminal-content :global(.output) {
+    color: #f8f8f2;
+    margin-bottom: 1rem;
+  }
+
+  .terminal-content :global(a) {
+    color: #bd93f9;
+    text-decoration: none;
+  }
+
+  .terminal-content :global(a:hover) {
+    text-decoration: underline;
+  }
 </style>
