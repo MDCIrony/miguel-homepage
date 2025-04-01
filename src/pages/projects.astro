@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+    {
+        title: "Sistema de Gestión de Tareas",
+        description: "Aplicación web para gestión de proyectos y tareas con React y Node.js",
+        tech: ["React", "Node.js", "MongoDB", "Express"],
+        github: "#",
+        demo: "#",
+        image: "/placeholder-project.jpg"
+    },
+    {
+        title: "Análisis de Datos Climáticos",
+        description: "Visualización de datos climáticos usando Python y bibliotecas de análisis de datos",
+        tech: ["Python", "Pandas", "Matplotlib", "Jupyter"],
+        github: "#",
+        demo: "#",
+        image: "/placeholder-project.jpg"
+    },
+    {
+        title: "API de Comercio Electrónico",
+        description: "Backend para plataforma de comercio electrónico con autenticación y procesamiento de pagos",
+        tech: ["Node.js", "Express", "PostgreSQL", "JWT"],
+        github: "#",
+        demo: "#",
+        image: "/placeholder-project.jpg"
+    }
+];
+---
+
+<Layout>
+    <div class="container">
+        <div class="terminal-nav">
+            <a href="/" class="back-button">← Volver al Terminal</a>
+        </div>
+        
+        <header>
+            <h1>> ls -l ~/projects/</h1>
+            <p class="subtitle">Proyectos destacados en mi portafolio</p>
+        </header>
+        
+        <div class="projects">
+            {projects.map(project => (
+                <div class="project-card">
+                    <div class="project-header">
+                        <h2>{project.title}</h2>
+                    </div>
+                    <div class="project-body">
+                        <p>{project.description}</p>
+                        <div class="tech-stack">
+                            {project.tech.map(tech => (
+                                <span class="tech-badge">{tech}</span>
+                            ))}
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <a href={project.github} class="project-link">$ git clone</a>
+                        <a href={project.demo} class="project-link">$ open demo</a>
+                    </div>
+                </div>
+            ))}
+        </div>
+        
+        <div class="more-info">
+            <p>Para ver más proyectos, ejecuta: <code>git clone https://github.com/miguel</code></p>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    
+    .terminal-nav {
+        margin-bottom: 30px;
+    }
+    
+    .back-button {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #333;
+        color: #0f0;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+    
+    .back-button:hover {
+        background-color: #444;
+        text-decoration: none;
+    }
+    
+    header {
+        margin-bottom: 40px;
+    }
+    
+    h1 {
+        font-size: 28px;
+        margin: 0;
+        color: #0f0;
+    }
+    
+    .subtitle {
+        color: #0c0;
+        margin: 10px 0 0;
+    }
+    
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+    
+    .project-card {
+        background-color: #111;
+        border: 1px solid #0f0;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 255, 0, 0.2);
+    }
+    
+    .project-header {
+        background-color: #222;
+        padding: 15px;
+        border-bottom: 1px solid #0f0;
+    }
+    
+    .project-header h2 {
+        margin: 0;
+        font-size: 18px;
+        color: #0f0;
+    }
+    
+    .project-body {
+        padding: 15px;
+    }
+    
+    .tech-stack {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    
+    .tech-badge {
+        background-color: #222;
+        color: #0f0;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+    
+    .project-footer {
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #333;
+    }
+    
+    .project-link {
+        color: #0f0;
+        text-decoration: none;
+    }
+    
+    .project-link:hover {
+        text-decoration: underline;
+    }
+    
+    .more-info {
+        margin-top: 40px;
+        text-align: center;
+        padding: 20px;
+        background-color: #111;
+        border-radius: 8px;
+    }
+    
+    code {
+        background-color: #222;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+</style>

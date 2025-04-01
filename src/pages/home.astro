@@ -1,0 +1,204 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Generate random stats for the system information
+const lastLogin = new Date(Date.now() - Math.floor(Math.random() * 7 * 24 * 60 * 60 * 1000)).toUTCString();
+const cpuUsage = Math.floor(Math.random() * 30) + "%";
+const memoryUsage = Math.floor(Math.random() * 60) + "%";
+const diskUsage = Math.floor(Math.random() * 70) + "%";
+const currentDate = new Date().toUTCString();
+ 
+---
+
+<Layout>
+    <div class="container">
+        <div class="terminal-nav">
+            <a href="/" class="back-button">← Volver al Terminal</a>
+        </div>
+        
+        <div class="ssh-welcome">
+            <pre class="welcome-banner">
+                _    _      _                          _____       _     _       
+                | |  | |    | |                        |  __ \     | |   (_)      
+                | |  | | ___| | ___ ___  _ __ ___   ___| |  | | ___| |__  _  __ _ 
+                | |  | |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \ |  | |/ _ \ '_ \| |/ _` |
+                | |__| |  __/ | (_| (_) | | | | | |  __/ |__| |  __/ |_) | | (_| |
+                 \____/ \___|_|\___\___/|_| |_| |_|\___|_____/ \___|_.__/|_|\__,_|
+                                                                                  
+            </pre>
+            <div class="login-info">
+                <p>Welcome to Miguel Portfolio (GNU/Linux 5.15.0-48-generic x86_64)</p>
+                <p>* Documentation: <a href="#">https://miguel.dev/docs</a></p>
+                <p>* Management:   <a href="#">https://miguel.dev/mgmt</a></p>
+                <p>* Support:      <a href="#">https://miguel.dev/support</a></p>
+            </div>
+            <div class="system-stats">
+                <p>System information as of {currentDate}</p>
+                <div class="stats-grid">
+                    <div class="stat">System load: {cpuUsage}</div>
+                    <div class="stat">Usage of /: {diskUsage}</div>
+                    <div class="stat">Memory usage: {memoryUsage}</div>
+                    <div class="stat">Swap usage: 0%</div>
+                    <div class="stat">Processes: 142</div>
+                    <div class="stat">Users logged in: 1</div>
+                </div>
+            </div>
+            <div class="user-info">
+                <p>Last login {lastLogin} from 192.168.1.105</p>
+                <p class="prompt">ubuntu@miguel-server:~$ whoami</p>
+                <p class="command-output">ubuntu</p>
+                <p class="prompt">ubuntu@miguel-server:~$ cat about.txt</p>
+                <div class="command-output content">
+                    <p>Hola, soy Miguel. Desarrollador apasionado con experiencia en diversas tecnologías y frameworks.</p>
+                    <p>Me especializo en crear soluciones web innovadoras y eficientes, con un enfoque en la experiencia de usuario.</p>
+                    <p>Mi objetivo es combinar diseño y funcionalidad para crear aplicaciones que sean tanto visualmente atractivas como técnicamente sólidas.</p>
+                </div>
+                <p class="prompt">ubuntu@miguel-server:~$ ls -l skills/</p>
+                <div class="command-output">
+                    <div class="skill-list">
+                        <div class="file-entry">-rwxr-xr-x 1 ubuntu ubuntu 4.0K Jul 15 2023 <span class="skill">JavaScript-TypeScript.sh</span></div>
+                        <div class="file-entry">-rwxr-xr-x 1 ubuntu ubuntu 3.8K Aug 23 2023 <span class="skill">React.jsx</span></div>
+                        <div class="file-entry">-rwxr-xr-x 1 ubuntu ubuntu 4.2K Sep 10 2023 <span class="skill">Node.js</span></div>
+                        <div class="file-entry">-rwxr-xr-x 1 ubuntu ubuntu 2.5K Oct 05 2023 <span class="skill">Astro.config.js</span></div>
+                        <div class="file-entry">-rwxr-xr-x 1 ubuntu ubuntu 3.1K Nov 18 2023 <span class="skill">Python.py</span></div>
+                        <div class="file-entry">-rwxr-xr-x 1 ubuntu ubuntu 2.9K Dec 01 2023 <span class="skill">SQL_NoSQL.db</span></div>
+                        <div class="file-entry">-rwxr-xr-x 1 ubuntu ubuntu 3.3K Jan 14 2023 <span class="skill">Docker-compose.yml</span></div>
+                        <div class="file-entry">-rwxr-xr-x 1 ubuntu ubuntu 2.7K Feb 28 2023 <span class="skill">Cloud-Services.json</span></div>
+                    </div>
+                </div>
+                <p class="prompt">ubuntu@miguel-server:~$ cat contact.json</p>
+								<pre class="command-output json-content">{
+									JSON.stringify({
+									"email": "miguel@example.com",
+									"github": "github.com/miguel",
+									"linkedin": "linkedin.com/in/miguel",
+									"twitter": "@miguel_dev"
+									}, null, 2)
+								}</pre>
+                <p class="prompt">ubuntu@miguel-server:~$ <span class="cursor">_</span></p>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .terminal-nav {
+        margin-bottom: 30px;
+    }
+    
+    .back-button {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #333;
+        color: #0f0;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+    
+    .back-button:hover {
+        background-color: #444;
+        text-decoration: none;
+    }
+    
+    .ssh-welcome {
+        background-color: #111;
+        border-radius: 8px;
+        padding: 20px;
+        font-family: 'Courier New', monospace;
+    }
+    
+    .welcome-banner {
+        color: #0f0;
+        font-size: 12px;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        white-space: pre;
+        overflow-x: auto;
+    }
+    
+    .login-info {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #333;
+    }
+    
+    .login-info p {
+        margin: 5px 0;
+    }
+    
+    .system-stats {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #333;
+    }
+    
+    .system-stats p {
+        margin-bottom: 10px;
+        color: #0f0;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 10px;
+    }
+    
+    .stat {
+        color: #ddd;
+    }
+    
+    .user-info {
+        color: #ddd;
+    }
+    
+    .prompt {
+        color: #0f0;
+        margin: 15px 0 5px;
+    }
+    
+    .command-output {
+        color: #ddd;
+        margin: 5px 0 15px;
+        padding-left: 15px;
+    }
+    
+    .file-entry {
+        font-family: monospace;
+        margin: 3px 0;
+    }
+    
+    .skill {
+        color: #40a0ff;
+    }
+    
+    .json-content {
+        background-color: #222;
+        padding: 15px;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin: 10px 0;
+    }
+    
+    .cursor {
+        animation: blink 1s step-end infinite;
+    }
+    
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+    
+    a {
+        color: #0f0;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+</style>

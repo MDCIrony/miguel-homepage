@@ -1,11 +1,30 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Terminal from '../components/Terminal.astro';
 ---
 
 <Layout>
-	<Welcome />
+    <main>
+        <Terminal />
+        <footer>
+            <p>© 2023 Miguel's Portfolio. Todos los derechos reservados.</p>
+        </footer>
+    </main>
 </Layout>
+
+<style>
+    main {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 12px;
+        color: #666;
+    }
+</style>

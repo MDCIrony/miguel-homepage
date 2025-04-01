@@ -1,0 +1,214 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Simulating blog posts from an external source
+const blogPosts = [
+    {
+        title: "Cómo mejorar el rendimiento de tus aplicaciones React",
+        date: "2023-09-15",
+        excerpt: "Aprende técnicas avanzadas para optimizar el rendimiento de tus aplicaciones React y proporcionar una mejor experiencia de usuario.",
+        url: "https://external-blog.com/react-performance",
+        tags: ["React", "Performance", "JavaScript"]
+    },
+    {
+        title: "Introducción a Astro: El framework para sitios centrados en contenido",
+        date: "2023-08-22",
+        excerpt: "Descubre cómo Astro puede ayudarte a crear sitios web más rápidos con menos JavaScript y una mejor experiencia de desarrollo.",
+        url: "https://external-blog.com/astro-intro",
+        tags: ["Astro", "JavaScript", "Web Development"]
+    },
+    {
+        title: "Patrones de diseño en TypeScript que deberías conocer",
+        date: "2023-07-10",
+        excerpt: "Una guía sobre los patrones de diseño más útiles en TypeScript y cómo implementarlos correctamente en tus proyectos.",
+        url: "https://external-blog.com/typescript-patterns",
+        tags: ["TypeScript", "Design Patterns", "Software Engineering"]
+    },
+    {
+        title: "MongoDB vs PostgreSQL: ¿Cuál elegir para tu próximo proyecto?",
+        date: "2023-06-05",
+        excerpt: "Un análisis comparativo entre MongoDB y PostgreSQL para ayudarte a tomar la mejor decisión para tu stack tecnológico.",
+        url: "https://external-blog.com/mongodb-vs-postgresql",
+        tags: ["Databases", "MongoDB", "PostgreSQL"]
+    },
+    {
+        title: "CI/CD con GitHub Actions: Una guía completa",
+        date: "2023-05-18",
+        excerpt: "Aprende a configurar pipelines de CI/CD eficientes y automatizados con GitHub Actions para tus proyectos.",
+        url: "https://external-blog.com/github-actions-cicd",
+        tags: ["DevOps", "CI/CD", "GitHub Actions"]
+    }
+];
+---
+
+<Layout>
+    <div class="container">
+        <div class="terminal-nav">
+            <a href="/" class="back-button">← Volver al Terminal</a>
+        </div>
+        
+        <header>
+            <h1>> cat ~/blog/README.md</h1>
+            <p class="subtitle">Últimas publicaciones de mi blog externo</p>
+        </header>
+        
+        <div class="blog-posts">
+            {blogPosts.map(post => (
+                <div class="blog-card">
+                    <div class="blog-header">
+                        <h2>{post.title}</h2>
+                        <div class="date">{post.date}</div>
+                    </div>
+                    <div class="blog-body">
+                        <p>{post.excerpt}</p>
+                        <div class="tags">
+                            {post.tags.map(tag => (
+                                <span class="tag-badge">#{tag}</span>
+                            ))}
+                        </div>
+                    </div>
+                    <div class="blog-footer">
+                        <a href={post.url} class="read-more" target="_blank">$ more | less</a>
+                    </div>
+                </div>
+            ))}
+        </div>
+        
+        <div class="more-info">
+            <p>Para ver más artículos, ejecuta: <code>wget https://mi-blog-externo.com/feed.xml</code></p>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    
+    .terminal-nav {
+        margin-bottom: 30px;
+    }
+    
+    .back-button {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #333;
+        color: #0f0;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+    
+    .back-button:hover {
+        background-color: #444;
+        text-decoration: none;
+    }
+    
+    header {
+        margin-bottom: 40px;
+    }
+    
+    h1 {
+        font-size: 28px;
+        margin: 0;
+        color: #0f0;
+    }
+    
+    .subtitle {
+        color: #0c0;
+        margin: 10px 0 0;
+    }
+    
+    .blog-posts {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .blog-card {
+        background-color: #111;
+        border: 1px solid #0f0;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .blog-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 255, 0, 0.2);
+    }
+    
+    .blog-header {
+        background-color: #222;
+        padding: 15px;
+        border-bottom: 1px solid #0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .blog-header h2 {
+        margin: 0;
+        font-size: 18px;
+        color: #0f0;
+    }
+    
+    .date {
+        color: #999;
+        font-size: 14px;
+    }
+    
+    .blog-body {
+        padding: 15px;
+    }
+    
+    .blog-body p {
+        margin: 0 0 15px;
+        line-height: 1.5;
+    }
+    
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    
+    .tag-badge {
+        background-color: #222;
+        color: #0f0;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+    
+    .blog-footer {
+        padding: 15px;
+        border-top: 1px solid #333;
+        text-align: right;
+    }
+    
+    .read-more {
+        color: #0f0;
+        text-decoration: none;
+        font-family: monospace;
+    }
+    
+    .read-more:hover {
+        text-decoration: underline;
+    }
+    
+    .more-info {
+        margin-top: 40px;
+        text-align: center;
+        padding: 20px;
+        background-color: #111;
+        border-radius: 8px;
+    }
+    
+    code {
+        background-color: #222;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+</style>
