@@ -1,4 +1,5 @@
 ---
+import Terminal from '../components/Terminal.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Simulating blog posts from an external source
@@ -41,174 +42,280 @@ const blogPosts = [
 ];
 ---
 
-<Layout>
-    <div class="container">
-        <div class="terminal-nav">
-            <a href="/" class="back-button">← Volver al Terminal</a>
-        </div>
-        
-        <header>
-            <h1>> cat ~/blog/README.md</h1>
-            <p class="subtitle">Últimas publicaciones de mi blog externo</p>
-        </header>
-        
-        <div class="blog-posts">
-            {blogPosts.map(post => (
-                <div class="blog-card">
-                    <div class="blog-header">
-                        <h2>{post.title}</h2>
-                        <div class="date">{post.date}</div>
-                    </div>
-                    <div class="blog-body">
-                        <p>{post.excerpt}</p>
-                        <div class="tags">
-                            {post.tags.map(tag => (
-                                <span class="tag-badge">#{tag}</span>
-                            ))}
-                        </div>
-                    </div>
-                    <div class="blog-footer">
-                        <a href={post.url} class="read-more" target="_blank">$ more | less</a>
-                    </div>
-                </div>
-            ))}
-        </div>
-        
-        <div class="more-info">
-            <p>Para ver más artículos, ejecuta: <code>wget https://mi-blog-externo.com/feed.xml</code></p>
-        </div>
+<Layout title="Blog - Miguel's Terminal">
+  <Terminal fullscreen={true} title="miguel@debian: ~/blog">
+    <span class="terminal-entry">ls -l ~/blog</span>
+    <div class="output-wrapper">
+      <p>Listing all blog posts (total: {blogPosts.length}):</p>
+      <div class="blog-grid">
+        {blogPosts.map((post, index) => (
+          <div class="project-card blog-card">
+            <div class="crt-container">
+              <div class="blog-image-placeholder">
+                <div class="blog-date">{post.date}</div>
+                <div class="blog-tag-highlight">{post.tags[0]}</div>
+              </div>
+              <div class="crt-overlay"></div>
+              <div class="crt-scanlines"></div>
+              <div class="crt-flicker"></div>
+            </div>
+            <div class="project-info">
+              <h3 class="project-title">{post.title}</h3>
+              <p class="project-description">{post.excerpt}</p>
+              <div class="project-tech">
+                {post.tags.map(tag => (
+                  <span class="tech-badge">{tag}</span>
+                ))}
+              </div>
+              <div class="project-links">
+                <a href={post.url} class="project-link" target="_blank">cat blog-{index + 1}.md</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
+    
+    <span class="terminal-entry">echo "Más artículos disponibles"</span>
+    <div class="output-wrapper">
+      <p>Para leer más publicaciones, visita mi blog completo:</p>
+      <p><code>wget https://mi-blog-externo.com/feed.xml</code></p>
+    </div>
+    
+    <span class="terminal-entry">cd ..</span>
+    <div class="output-wrapper">
+      <p>Volviendo al directorio principal...</p>
+      <p><a href="/">Click aquí</a> para regresar al home.</p>
+    </div>
+    
+    <span class="terminal-entry blinking-cursor"></span>
+  </Terminal>
 </Layout>
 
 <style>
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 40px 20px;
-    }
-    
-    .terminal-nav {
-        margin-bottom: 30px;
-    }
-    
-    .back-button {
-        display: inline-block;
-        padding: 8px 15px;
-        background-color: #333;
-        color: #0f0;
-        border-radius: 4px;
-        text-decoration: none;
-    }
-    
-    .back-button:hover {
-        background-color: #444;
-        text-decoration: none;
-    }
-    
-    header {
-        margin-bottom: 40px;
-    }
-    
-    h1 {
-        font-size: 28px;
-        margin: 0;
-        color: #0f0;
-    }
-    
-    .subtitle {
-        color: #0c0;
-        margin: 10px 0 0;
-    }
-    
-    .blog-posts {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-    }
-    
-    .blog-card {
-        background-color: #111;
-        border: 1px solid #0f0;
-        border-radius: 8px;
-        overflow: hidden;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    
-    .blog-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 255, 0, 0.2);
-    }
-    
-    .blog-header {
-        background-color: #222;
-        padding: 15px;
-        border-bottom: 1px solid #0f0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .blog-header h2 {
-        margin: 0;
-        font-size: 18px;
-        color: #0f0;
-    }
-    
-    .date {
-        color: #999;
-        font-size: 14px;
-    }
-    
-    .blog-body {
-        padding: 15px;
-    }
-    
-    .blog-body p {
-        margin: 0 0 15px;
-        line-height: 1.5;
-    }
-    
-    .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-    }
-    
-    .tag-badge {
-        background-color: #222;
-        color: #0f0;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-    }
-    
-    .blog-footer {
-        padding: 15px;
-        border-top: 1px solid #333;
-        text-align: right;
-    }
-    
-    .read-more {
-        color: #0f0;
-        text-decoration: none;
-        font-family: monospace;
-    }
-    
-    .read-more:hover {
-        text-decoration: underline;
-    }
-    
-    .more-info {
-        margin-top: 40px;
-        text-align: center;
-        padding: 20px;
-        background-color: #111;
-        border-radius: 8px;
-    }
-    
-    code {
-        background-color: #222;
-        padding: 4px 8px;
-        border-radius: 4px;
-    }
+  /* Cursor parpadenate como en home */
+  .blinking-cursor::after {
+    content: "█";
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  /* Estilo para la grilla de blogs */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .project-card, .blog-card {
+    background-color: #1c1e26;
+    border: 1px solid #44475a;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Contenedor para el efecto CRT */
+  .crt-container {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    background-color: #282a36;
+  }
+  
+  /* Estilo específico para el placeholder de imagen de blog */
+  .blog-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    background: linear-gradient(45deg, #282a36, #44475a);
+  }
+  
+  .blog-date {
+    align-self: flex-start;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #f8f8f2;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+  
+  .blog-tag-highlight {
+    align-self: flex-end;
+    background-color: #bd93f9;
+    color: #282a36;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+  
+  /* Efectos CRT para simular pantalla antigua */
+  .crt-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle at center,
+      rgba(40, 42, 54, 0) 0%,
+      rgba(40, 42, 54, 0.2) 80%,
+      rgba(40, 42, 54, 0.4) 100%
+    );
+    pointer-events: none;
+  }
+  
+  .crt-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+  }
+  
+  .crt-flicker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background: white;
+    mix-blend-mode: overlay;
+    animation: flicker 0.2s infinite alternate;
+    pointer-events: none;
+  }
+  
+  @keyframes flicker {
+    0%, 100% { opacity: 0.05; }
+    50% { opacity: 0.02; }
+  }
+  
+  /* Información del proyecto/blog */
+  .project-info {
+    padding: 1rem;
+  }
+  
+  .project-title {
+    margin: 0 0 0.5rem 0;
+    color: #8be9fd;
+    font-size: 1.1rem;
+  }
+  
+  .project-description {
+    margin: 0 0 1rem 0;
+    color: #f8f8f2;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .tech-badge {
+    background: #44475a;
+    color: #50fa7b;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+  
+  .project-links {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .project-link {
+    color: #bd93f9;
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+  
+  .project-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Terminal específico - arregla solapamiento */
+  .terminal-entry {
+    display: block;
+    color: #50fa7b;
+    font-family: monospace;
+    padding: 0.5rem 0;
+    margin: 1rem 0 0.25rem;
+  }
+  
+  .output-wrapper {
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    color: #f8f8f2;
+  }
+  
+  .output-wrapper p {
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
+  
+  .output-wrapper code {
+    color: #bd93f9;
+    background-color: #44475a;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+  }
+  
+  /* Ajustes para compatibilidad con el componente Terminal */
+  :global(.terminal) {
+    font-family: monospace;
+  }
+  
+  :global(.terminal-body) {
+    padding: 1rem !important;
+    overflow: auto;
+  }
+  
+  :global(.terminal-body .terminal-content) {
+    white-space: normal !important;
+  }
+  
+  /* Oculta cualquier duplicado del prompt */
+  :global(.terminal-prompt:not(:first-of-type)) {
+    display: none;
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Elimina cualquier prompt duplicado del terminal
+    const terminalContent = document.querySelector('.terminal-content');
+    if (terminalContent) {
+      const text = terminalContent.innerHTML;
+      terminalContent.innerHTML = text.replace(/miguel@debian:~\$\s+miguel@debian:~\$/g, 'miguel@debian:~$');
+    }
+  });
+</script>
